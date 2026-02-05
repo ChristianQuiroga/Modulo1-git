@@ -1,0 +1,104 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\chris\\OneDrive\\Documents\\EducacionIT\\POO_IA\\WinFormsApp1PONG\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{595292E1-9A59-4FE1-897A-44F8E5479665}|WinFormsApp1PONG\\WinFormsApp1PONG.csproj|c:\\users\\chris\\onedrive\\documents\\educacionit\\poo_ia\\winformsapp1pong\\winformsapp1pong\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{595292E1-9A59-4FE1-897A-44F8E5479665}|WinFormsApp1PONG\\WinFormsApp1PONG.csproj|solutionrelative:winformsapp1pong\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{595292E1-9A59-4FE1-897A-44F8E5479665}|WinFormsApp1PONG\\WinFormsApp1PONG.csproj|c:\\users\\chris\\onedrive\\documents\\educacionit\\poo_ia\\winformsapp1pong\\winformsapp1pong\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{595292E1-9A59-4FE1-897A-44F8E5479665}|WinFormsApp1PONG\\WinFormsApp1PONG.csproj|solutionrelative:winformsapp1pong\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{595292E1-9A59-4FE1-897A-44F8E5479665}|WinFormsApp1PONG\\WinFormsApp1PONG.csproj|c:\\users\\chris\\onedrive\\documents\\educacionit\\poo_ia\\winformsapp1pong\\winformsapp1pong\\pong.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{595292E1-9A59-4FE1-897A-44F8E5479665}|WinFormsApp1PONG\\WinFormsApp1PONG.csproj|solutionrelative:winformsapp1pong\\pong.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Documents\\EducacionIT\\POO_IA\\WinFormsApp1PONG\\WinFormsApp1PONG\\Form1.cs",
+              "RelativeDocumentMoniker": "WinFormsApp1PONG\\Form1.cs",
+              "ToolTip": "C:\\Users\\chris\\OneDrive\\Documents\\EducacionIT\\POO_IA\\WinFormsApp1PONG\\WinFormsApp1PONG\\Form1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "WinFormsApp1PONG\\Form1.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-16T21:57:43.37Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "pong.html",
+              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Documents\\EducacionIT\\POO_IA\\WinFormsApp1PONG\\WinFormsApp1PONG\\pong.html",
+              "RelativeDocumentMoniker": "WinFormsApp1PONG\\pong.html",
+              "ToolTip": "C:\\Users\\chris\\OneDrive\\Documents\\EducacionIT\\POO_IA\\WinFormsApp1PONG\\WinFormsApp1PONG\\pong.html",
+              "RelativeToolTip": "WinFormsApp1PONG\\pong.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-12-16T21:57:39.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\chris\\OneDrive\\Documents\\EducacionIT\\POO_IA\\WinFormsApp1PONG\\WinFormsApp1PONG\\Form1.Designer.cs",
+              "RelativeDocumentMoniker": "WinFormsApp1PONG\\Form1.Designer.cs",
+              "ToolTip": "C:\\Users\\chris\\OneDrive\\Documents\\EducacionIT\\POO_IA\\WinFormsApp1PONG\\WinFormsApp1PONG\\Form1.Designer.cs*",
+              "RelativeToolTip": "WinFormsApp1PONG\\Form1.Designer.cs*",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAwwAoAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-01T23:46:10.032Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 331,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

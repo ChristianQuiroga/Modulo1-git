@@ -1,0 +1,432 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pong - Juego simple</title>
+    <style>
+        /* Reset y fuente limpia */
+        :root {
+            --bg: #0f1724; /* color fondo */
+            --panel: #0b1220;
+            --accent: #60a5fa;
+            --muted: #94a3b8;
+            --white: #e6eef8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html, body {
+            height: 100%
+        }
+
+        body {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(180deg,var(--bg),#071025);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            padding: 24px;
+        }
+
+        /* Contenedor principal */
+        .container {
+            width: 900px;
+            max-width: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px
+        }
+
+        h1 {
+            font-size: 20px;
+            letter-spacing: 0.4px
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        /* Area del juego */
+        .game-area {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start
+        }
+
+        .canvas-wrap {
+            background: var(--panel);
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center
+        }
+
+        /* El canvas centrado y responsive */
+        canvas {
+            background: linear-gradient(180deg,#061325,#071427);
+            border-radius: 6px;
+            display: block
+        }
+
+        /* Marcador */
+        .scoreboard {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 8px
+        }
+
+        .score {
+            background: rgba(255,255,255,0.02);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.02);
+            min-width: 80px;
+            text-align: center
+        }
+
+            .score b {
+                display: block;
+                font-size: 20px
+            }
+
+        .center-msg {
+            color: var(--muted);
+            font-size: 14px;
+            text-align: center;
+            margin-top: 8px
+        }
+
+        /* Panel de instrucciones */
+        .instructions {
+            flex: 1;
+            color: var(--muted);
+            font-size: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px dashed rgba(255,255,255,0.03);
+            line-height: 1.5
+        }
+
+        .hint {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        footer {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center
+        }
+
+        @media (max-width:800px) {
+            .game-area {
+                flex-direction: column;
+                align-items: center
+            }
+
+            .instructions {
+                width: 100%
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pong — Juego simple</h1>
+            <div class="meta">Controles: Jugador izquierdo = 'A' arriba / 'Z' abajo • Jugador derecho = Flechas arriba/abajo</div>
+        </header>
+
+        <div class="game-area">
+            <div class="canvas-wrap">
+                <div class="scoreboard">
+                    <div class="score">Jugador A<br><b id="scoreA">0</b></div>
+                    <div class="score">Jugador B<br><b id="scoreB">0</b></div>
+                </div>
+
+                <!-- Canvas del juego -->
+                <canvas id="pong" width="800" height="450" role="img" aria-label="Canvas del juego Pong"></canvas>
+                <div class="center-msg" id="centerMsg">Pulsa Esc para pausar — El juego se reinicia automáticamente tras cada punto.</div>
+            </div>
+
+            <div class="instructions">
+                <h3>Instrucciones</h3>
+                <ul>
+                    <li>Jugador izquierdo controla su paleta con las teclas <b>A</b> (arriba) y <b>Z</b> (abajo).</li>
+                    <li>Jugador derecho controla su paleta con <b>Flecha arriba</b> y <b>Flecha abajo</b>.</li>
+                    <li>Cuando la pelota pasa la línea de un jugador, el punto va al rival. El juego reinicia las paletas y la pelota automáticamente.</li>
+                    <li>Presiona <b>Esc</b> para pausar/reanudar. Durante la pausa se muestra el mensaje central.</li>
+                </ul>
+                <div class="hint">Consejo: Mantén pulsada la tecla para mover la paleta. Si integras esto en un proyecto C# (por ejemplo WebView o una página estática), simplemente copia este archivo como <code>pong.html</code>.</div>
+            </div>
+        </div>
+
+        <footer>Hecho con ❤️ — Código con comentarios detallados para fácil mantenimiento.</footer>
+    </div>
+
+    <script>
+  /* -----------------------------------------------------------
+     Pong simple en un solo archivo
+     - Controles: A/Z para jugador izquierdo, Flechas para derecho
+     - Reinicia posiciones automáticamente al anotar (pausa breve)
+     - Comentarios detallados para comprender la lógica
+     ----------------------------------------------------------- */
+
+  // --- Configuración básica y referencias al DOM ---
+  const canvas = document.getElementById('pong');
+  const ctx = canvas.getContext('2d');
+  const scoreADom = document.getElementById('scoreA');
+  const scoreBDom = document.getElementById('scoreB');
+  const centerMsg = document.getElementById('centerMsg');
+
+  // Ajustes de tamaño (puedes cambiar si lo integras en otra UI)
+  const WIDTH = canvas.width;
+  const HEIGHT = canvas.height;
+
+  // --- Parámetros del juego (fáciles de ajustar) ---
+  const PADDLE_WIDTH = 14;
+  const PADDLE_HEIGHT = 90;
+  const PADDLE_SPEED = 6.5; // velocidad por frame
+  const BALL_SIZE = 12;
+  const BALL_SPEED_BASE = 5; // velocidad inicial
+
+  // --- Estado de juego ---
+  let leftPaddle = { x: 12, y: (HEIGHT - PADDLE_HEIGHT) / 2, vy: 0 };
+  let rightPaddle = { x: WIDTH - 12 - PADDLE_WIDTH, y: (HEIGHT - PADDLE_HEIGHT) / 2, vy: 0 };
+  let ball = { x: WIDTH / 2, y: HEIGHT / 2, vx: BALL_SPEED_BASE, vy: 0 };
+
+  let scoreA = 0;
+  let scoreB = 0;
+
+  let keys = {}; // mapa de teclas presionadas
+  let paused = false;
+  let serving = false; // true durante la pausa breve tras punto
+
+  // --- Inicializa la pelota con dirección aleatoria hacia un jugador ---
+  function resetBall(toRight = Math.random() > 0.5) {
+    ball.x = WIDTH / 2;
+    ball.y = HEIGHT / 2;
+
+    // velocidad inicial horizontal (direccion según quien sirva)
+    const dir = toRight ? 1 : -1;
+    // velocidad aleatoria en y para variar los juegos
+    const angle = (Math.random() * 0.6 - 0.3); // entre -0.3 y 0.3
+    ball.vx = dir * BALL_SPEED_BASE;
+    ball.vy = BALL_SPEED_BASE * angle;
+  }
+
+  // --- Reinicia paletas y pelota; usado tras punto anotado ---
+  function resetPositions() {
+    leftPaddle.y = (HEIGHT - PADDLE_HEIGHT) / 2;
+    rightPaddle.y = (HEIGHT - PADDLE_HEIGHT) / 2;
+    // servir hacia el jugador que perdió el punto (así el rival recibe)
+    const serveRight = Math.random() > 0.5;
+    resetBall(serveRight);
+  }
+
+  // --- Entrada de teclado ---
+  window.addEventListener('keydown', (e) => {
+    keys[e.key.toLowerCase()] = true;
+
+    // Toggle pausa con Escape
+    if (e.key === 'Escape') {
+      paused = !paused;
+      centerMsg.textContent = paused ? 'Pausa — pulsa Esc para reanudar' : 'Reanudado';
+      // mensaje temporal al reanudar
+      if (!paused) setTimeout(() => { centerMsg.textContent = 'Pulsa Esc para pausar — El juego se reinicia automáticamente tras cada punto.'; }, 800);
+    }
+  });
+  window.addEventListener('keyup', (e) => {
+    keys[e.key.toLowerCase()] = false;
+  });
+
+  // --- Logica para mover paletas según teclas presionadas ---
+  function updatePaddles() {
+    // Jugador izquierdo: 'a' arr, 'z' abajo
+    if (keys['a']) leftPaddle.y -= PADDLE_SPEED;
+    if (keys['z']) leftPaddle.y += PADDLE_SPEED;
+    // Jugador derecho: Flechas
+    if (keys['arrowup']) rightPaddle.y -= PADDLE_SPEED;
+    if (keys['arrowdown']) rightPaddle.y += PADDLE_SPEED;
+
+    // Limitar que las paletas no salgan del canvas
+    leftPaddle.y = Math.max(0, Math.min(HEIGHT - PADDLE_HEIGHT, leftPaddle.y));
+    rightPaddle.y = Math.max(0, Math.min(HEIGHT - PADDLE_HEIGHT, rightPaddle.y));
+  }
+
+  // --- Detección de colisiones pelota-paleta y rebotes ---
+  function checkCollisions() {
+    // Rebote con bordes superior e inferior
+    if (ball.y <= 0) { ball.y = 0; ball.vy = -ball.vy; }
+    if (ball.y + BALL_SIZE >= HEIGHT) { ball.y = HEIGHT - BALL_SIZE; ball.vy = -ball.vy; }
+
+    // Colisión con paleta izquierda
+    if (ball.x <= leftPaddle.x + PADDLE_WIDTH) {
+      if (ball.y + BALL_SIZE >= leftPaddle.y && ball.y <= leftPaddle.y + PADDLE_HEIGHT) {
+        // calcular punto de impacto para variar el ángulo
+        const relativeY = (leftPaddle.y + PADDLE_HEIGHT/2) - (ball.y + BALL_SIZE/2);
+        const normalized = relativeY / (PADDLE_HEIGHT/2); // -1..1
+        const bounceAngle = normalized * 0.6; // ajustar sensibilidad
+        ball.vx = Math.abs(ball.vx) + 0.3; // incrementar ligeramente la velocidad horizontal
+        ball.vx = Math.max(4, ball.vx); // asegurar velocidad minima
+        ball.vy = -bounceAngle * Math.abs(ball.vx);
+        // colocar la pelota justo fuera de la paleta para evitar 'pegarse'
+        ball.x = leftPaddle.x + PADDLE_WIDTH + 0.1;
+      }
+    }
+
+    // Colisión con paleta derecha
+    if (ball.x + BALL_SIZE >= rightPaddle.x) {
+      if (ball.y + BALL_SIZE >= rightPaddle.y && ball.y <= rightPaddle.y + PADDLE_HEIGHT) {
+        const relativeY = (rightPaddle.y + PADDLE_HEIGHT/2) - (ball.y + BALL_SIZE/2);
+        const normalized = relativeY / (PADDLE_HEIGHT/2);
+        const bounceAngle = normalized * 0.6;
+        ball.vx = -Math.abs(ball.vx) - 0.3;
+        ball.vy = -bounceAngle * Math.abs(ball.vx);
+        ball.x = rightPaddle.x - BALL_SIZE - 0.1;
+      }
+    }
+  }
+
+  // --- Comprueba si alguien anotó; actualiza marcador y reinicia posiciones ---
+  function checkScore() {
+    // Si la pelota sale por la izquierda, gana B
+    if (ball.x + BALL_SIZE < 0) {
+      scoreB += 1;
+      scoreBDom.textContent = scoreB;
+      pointScored('Jugador B');
+      return true;
+    }
+    // Si sale por la derecha, gana A
+    if (ball.x > WIDTH) {
+      scoreA += 1;
+      scoreADom.textContent = scoreA;
+      pointScored('Jugador A');
+      return true;
+    }
+    return false;
+  }
+
+  // Acción tras punto anotado: pausa breve, muestra mensaje y reinicia
+  function pointScored(winner) {
+    serving = true;
+    paused = true; // pausamos la simulación breve
+    centerMsg.textContent = winner + ' anota — reiniciando...';
+
+    // Limpia movimiento momentaneo
+    setTimeout(() => {
+      // Reinicia posiciones y pelota, reanuda el juego
+      resetPositions();
+      paused = false;
+      serving = false;
+      centerMsg.textContent = 'Pulsa Esc para pausar — El juego se reinicia automáticamente tras cada punto.';
+    }, 900); // <--- tiempo de pausa tras punto (ms)
+  }
+
+  // --- Lógica principal del movimiento de la pelota ---
+  function updateBall() {
+    ball.x += ball.vx;
+    ball.y += ball.vy;
+  }
+
+  // --- Dibujo de elementos en canvas ---
+  function draw() {
+    // fondo
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+    // línea central punteada
+    ctx.fillStyle = 'rgba(255,255,255,0.06)';
+    const dashH = 12, gap = 10;
+    for (let y = 0; y < HEIGHT; y += dashH + gap) {
+      ctx.fillRect(WIDTH/2 - 1, y, 2, dashH);
+    }
+
+    // paletas
+    ctx.fillStyle = 'rgba(96,165,250,0.95)';
+    // izquierda
+    roundRect(ctx, leftPaddle.x, leftPaddle.y, PADDLE_WIDTH, PADDLE_HEIGHT, 6);
+    // derecha
+    roundRect(ctx, rightPaddle.x, rightPaddle.y, PADDLE_WIDTH, PADDLE_HEIGHT, 6);
+
+    // pelota
+    ctx.fillStyle = '#e6eef8';
+    roundRect(ctx, ball.x, ball.y, BALL_SIZE, BALL_SIZE, 3);
+
+    // marcador en canvas (opcional) — comentado porque tenemos DOM arriba
+    // ctx.font = '18px Inter, sans-serif';
+    // ctx.fillStyle = 'rgba(255,255,255,0.6)';
+    // ctx.fillText(scoreA, WIDTH/2 - 40, 30);
+    // ctx.fillText(scoreB, WIDTH/2 + 30, 30);
+  }
+
+  // pequeña función helper para rectángulos con bordes redondeados
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  // --- Bucle del juego ---
+  function loop() {
+    if (!paused) {
+      // actualizar paletas según input
+      updatePaddles();
+
+      // actualizar pelota
+      updateBall();
+
+      // colisiones
+      checkCollisions();
+
+      // comprobar puntuacion
+      const scored = checkScore();
+      // si scored === true la función pointScored manejará el reinicio y la pausa
+    }
+
+    // dibujar siempre (aunque esté en pausa, para mostrar el estado)
+    draw();
+
+    // solicitar siguiente frame
+    requestAnimationFrame(loop);
+  }
+
+  // --- Inicialización ---
+  resetPositions();
+  // iniciamos bucle
+  loop();
+
+  // --- NOTAS / SUGERENCIAS para integrarlo en VS C# ---
+  // Si vas a usarlo dentro de un proyecto C#.NET (por ejemplo con WebView2 o WinForms WebBrowser):
+  // 1) Crea un archivo "pong.html" con este contenido y añádelo a tu proyecto como archivo estático.
+  // 2) Carga la ruta local en el control WebView2: webView2.CoreWebView2.Navigate("file:///C:/ruta/a/pong.html");
+  // 3) Si quieres comunicarte entre C# y JS (p.ej. para guardar puntuaciones), usa postMessage/hostObjects o la API de WebView2 para ejecutar JS desde C#.
+
+    </script>
+</body>
+</html>

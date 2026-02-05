@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "wUNlczUN8BY=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\chris\\OneDrive\\Documents\\EducacionIT\\POO_IA\\WinFormsApp1PONG\\WinFormsApp1PONG\\WinFormsApp1PONG.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\chris\\.nuget\\packages\\microsoft.web.webview2\\1.0.3595.46\\microsoft.web.webview2.1.0.3595.46.nupkg.sha512"
+  ],
+  "logs": []
+}
